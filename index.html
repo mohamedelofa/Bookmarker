@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmark</title>
+    <link rel="icon" href="images/2899445.png">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="overlay" id="overlay" onclick="off()"></div>
+
+
+    <div class="main vh-100 text-center overflow-auto">
+        <h1 class="mt-5 position-relative">Bookmarker</h1>
+
+        <div class="container mt-5 content">
+            <h4 class="mt-4"><i class="fa-solid fa-bookmark"></i> Bookmark your favorite sites <i class="fa-solid fa-bookmark"></i></h4>
+            <div class="text-start mb-4 position-relative" id="name">
+                <label class="form-label" for="siteName"><span><i class="fa-solid fa-book-bookmark pe-2"></i></span>Site Name</label>
+                <input onkeyup="isValidName()"  type="text" class="form-control valid-name" placeholder="Bookmark Name" id="siteName"/>
+                <span id="nameState"></span>
+            </div>
+
+            <div class="text-start mb-4 position-relative" >
+                <label class="form-label" for="siteUrl" ><span><i class="fa-solid fa-link pe-2"></i></span>Site URL</label>
+                <input onkeyup="isValidUrl()" type="text" placeholder="Website URL" id="siteUrl" class="form-control valid-url"/>
+                <span id="urlState"></span>
+            </div>
+
+            <div class="mb-4">
+                <button onclick="submit()" type="button" class="btn btn-danger px-5">Submit</button>
+                <button onclick="deleteAll()" type="button" class="btn btn-danger px-5">Clear</button>
+            </div>
+            <div class="mb-5">
+                <input type="text" onkeyup="search()" id="search" placeholder="Search........." class="form-control w-50 mx-auto"/>
+            </div>
+        </div>
+
+
+        <div class="container mt-4">
+            <table class="table ">
+                <thead>
+                    <th>Index</th>
+                    <th>Website Name</th>
+                    <th>Visit</th>
+                    <th>Delete</th>
+                </thead>
+                <tbody id="tableContent">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="message bg-light p-4 position-absolute  shadow-lg" id="message">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="circles">
+                    <span class="rounded-circle me-2 d-inline-block bg-danger"></span>
+                    <span class="rounded-circle me-2 d-inline-block bg-warning"></span>
+                    <span class="rounded-circle me-2 d-inline-block bg-success"></span>
+                </div>
+                <div><button onclick="hide()" class="btn p-0 border-0"><i class="fa-regular fa-circle-xmark fa-xl"></i></button></div>
+            </div>
+            <h4>Site Name or Url is not valid, Please follow the rules below :</h4>
+            <p><i class="fa-solid fa-circle-arrow-right" style="color:#daa520;"></i> Site name must contain at least 3 characters</p>
+            <p><i class="fa-solid fa-circle-arrow-right" style="color:#daa520;"></i> Site URL must be a valid one</p>
+        </div>
+    </div>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
