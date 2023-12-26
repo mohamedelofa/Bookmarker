@@ -5,7 +5,7 @@ var list = [];
 
 
 
-if(localStorage.getItem("list") != null ){
+if (localStorage.getItem("list") != null) {
     list = JSON.parse(localStorage.getItem("list"));
     display();
 }
@@ -13,11 +13,11 @@ if(localStorage.getItem("list") != null ){
 
 
 
-function submit(){
-    if(isValidName() && isValidUrl()){
+function submit() {
+    if (isValidName() && isValidUrl()) {
         var element = {
-            name:siteName.value,
-            url:siteUrl.value
+            name: siteName.value,
+            url: siteUrl.value
         }
         list.push(element);
         display();
@@ -30,38 +30,27 @@ function submit(){
 
     }
 
-else{
-    document.getElementById("message").classList.add("show");
-    document.getElementById("overlay").style.display = "block";
-}
-}
-
-
-
-
-
-
-
-
-function off(){
-    document.getElementById("overlay").style.display = "none";
-    hide();
+    else {
+        document.getElementById("message").classList.add("show");
+        document.getElementById("overlay").style.display = "block";
+    }
 }
 
 
 
-function display(){
 
-   var temp = "";
-   for(var i = 0 ;i< list.length;i++){
-    
-    temp = temp + `<tr>
-    <td>`+ (i+1) +`</td>
-    <td>`+list[i].name +`</td>
-    <td><button onclick="openWindow(`+i+`)" type="button" class="btn btn-success"><i class="fa-solid fa-eye"></i> Visit</button></td>
-    <td><button type="button" onclick="deleteItem(`+i+`)" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i> Delete</button></td>
+function display() {
+
+    var temp = "";
+    for (var i = 0; i < list.length; i++) {
+
+        temp = temp + `<tr>
+    <td>`+ (i + 1) + `</td>
+    <td>`+ list[i].name + `</td>
+    <td><button onclick="openWindow(`+ i + `)" type="button" class="btn btn-success"><i class="fa-solid fa-eye"></i> Visit</button></td>
+    <td><button type="button" onclick="deleteItem(`+ i + `)" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i> Delete</button></td>
     </tr>`
-   }
+    }
 
     document.getElementById("tableContent").innerHTML = temp;
 }
@@ -69,10 +58,10 @@ function display(){
 
 
 
-function clearForm(){
+function clearForm() {
     siteName.value = "";
     siteName.placeholder = "Bookmark Name";
-    siteUrl .value = "";
+    siteUrl.value = "";
     siteUrl.placeholder = "Website URL";
 }
 
@@ -80,16 +69,16 @@ function clearForm(){
 
 
 
-function setStorage(item){
-    localStorage.setItem("list",JSON.stringify(item));
+function setStorage(item) {
+    localStorage.setItem("list", JSON.stringify(item));
 }
 
 
 
 
 
-function deleteItem(index){
-    list.splice(index,1);
+function deleteItem(index) {
+    list.splice(index, 1);
     display();
     setStorage(list);
 }
@@ -97,8 +86,8 @@ function deleteItem(index){
 
 
 
-function deleteAll(){
-    list=[];
+function deleteAll() {
+    list = [];
     display();
     setStorage(list);
 }
@@ -106,42 +95,55 @@ function deleteAll(){
 
 
 
-function openWindow(index){
-    window.open(list[index].url,"_blank");
+function openWindow(index) {
+    window.open(list[index].url, "_blank");
 }
 
 
 
 
 
-function search (){
+function search() {
     var searchValue = document.getElementById("search").value.toLowerCase();
     var temp = "";
-    for(var i = 0 ;i< list.length;i++){
-    if((list[i].name.toLowerCase()).includes(searchValue)){
-    temp = temp + `<tr>
-    <td>`+ (i+1) +`</td>
-    <td>`+(list[i].name.toLowerCase()).replace(searchValue,"<span class='bg-warning'>"+searchValue+"</span>")+ `</td>
-    <td><button onclick="openWindow(`+i+`)" type="button" class="btn btn-success"><i class="fa-solid fa-eye"></i> Visit</button></td>
-    <td><button type="button" onclick="deleteItem(`+i+`)" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i> Delete</button></td>
+    for (var i = 0; i < list.length; i++) {
+        if ((list[i].name.toLowerCase()).includes(searchValue)) {
+            temp = temp + `<tr>
+    <td>`+ (i + 1) + `</td>
+    <td>`+ (list[i].name.toLowerCase()).replace(searchValue, "<span class='bg-warning'>" + searchValue + "</span>") + `</td>
+    <td><button onclick="openWindow(`+ i + `)" type="button" class="btn btn-success"><i class="fa-solid fa-eye"></i> Visit</button></td>
+    <td><button type="button" onclick="deleteItem(`+ i + `)" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i> Delete</button></td>
     </tr>`
+        }
     }
-}
     document.getElementById("tableContent").innerHTML = temp;
 }
 
 
 
 
-function isValidName(){
+
+
+document.querySelector(".valid-name").addEventListener('blur',function(){
+    document.querySelector(".valid-name").style.boxShadow = "none";
+    document.querySelector(".valid-url").style.boxShadow = "none";
+})
+
+document.querySelector(".valid-url").addEventListener('blur',function(){
+    document.querySelector(".valid-url").style.boxShadow = "none";
+})
+
+
+
+
+function isValidName() {
     var name = siteName.value.trim();
-    if(name.match(/^[A-Za-z]{3,20}$/i)){
+    if (name.match(/^[A-Za-z]{3,20}$/i)) {
         document.getElementById("nameState").innerHTML = '<i class="fa-solid fa-circle-check" style="color:green;"></i>';
         document.querySelector(".valid-name").style = "border-color:green;box-shadow: 0 0 0 0.25rem rgba(25,135,84,.25);";
         return true;
     }
     else {
-        
         document.getElementById("nameState").innerHTML = '<i class="fa-solid fa-circle-exclamation" style="color:red;"></i>';
         document.querySelector(".valid-name").style = "border-color:red;    box-shadow: 0 0 0 0.25rem rgba(220,53,69,.25);";
         return false;
@@ -151,22 +153,22 @@ function isValidName(){
 
 
 
-function isValidUrl(){
+function isValidUrl() {
     var url = siteUrl.value.trim();
-    if(url.match( /^(ftp|https?):\/\/+(www\.)[a-z0-9\-\.]{3,}\.[a-z]{3}$/)){
+    if (url.match(/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/)) {
         document.getElementById("urlState").innerHTML = '<i class="fa-solid fa-circle-check" style="color:green;"></i>';
         document.querySelector(".valid-url").style = "border-color:green;box-shadow: 0 0 0 0.25rem rgba(25,135,84,.25);";
         return true;
     }
-    else{
+    else {
         document.getElementById("urlState").innerHTML = '<i class="fa-solid fa-circle-exclamation" style="color:red;"></i>';
         document.querySelector(".valid-url").style = "border-color:red;    box-shadow: 0 0 0 0.25rem rgba(220,53,69,.25);";
         return false;
     }
 }
 
-function hide(){
+function hide() {
     document.getElementById("message").classList.remove("show");
-    off();
+    document.getElementById("overlay").style.display = "none";
 }
 
